@@ -37,7 +37,7 @@ public class ObjectiveFunction {
 			}
 		}
 		for (counter = 0; counter < functionArray.size() - 1; counter++) {
-			if (counter == nonEmpty[0]) {
+			if (counter == nonEmpty[0]) { //testing a
 				strs = functionArray.get(nonEmpty[0]).split("\\s+");
 				if (strs[0].equals("max")) {
 					minMax[0][0] = 1;
@@ -48,18 +48,31 @@ public class ObjectiveFunction {
 				}
 				size=strs.length;
 				for (j = 1; j < size; j += 3) {
-					Double aDouble = Double.parseDouble(strs[j]);
-					this.c[0][n] = aDouble;
-					n++;
+					try {
+						Double aDouble = Double.parseDouble(strs[j]);
+						if(j!=1&&! strs[j - 1].equals("-")&&! strs[j - 1].equals("+")) { //testing c
+							System.out.println("Incorrect input in line :" + counter++);
+							break;
+						}
+						if (j != 1 && strs[j - 1].equals("-")) { 
+							this.c[0][n] = -aDouble;
+						} else {
+							this.c[0][n] = aDouble;
+						}
+						n++;
+					} catch (NumberFormatException ex) {
+						System.out.println("Incorrect input in line :" + counter++);
+						break;
+					}				
 				}
-			} else if (counter == nonEmpty[1]) {
+			} else if (counter == nonEmpty[1]) { 
 				strs = functionArray.get(nonEmpty[1]).split("\\s+");
-				if (!strs[0].equals("st") && !strs[0].equals("st") && !strs[0].equals("subject to")) {
+				if (!strs[0].equals("st") && !strs[0].equals("st") && !strs[0].equals("subject to")) {   //testing b
 					System.out.println("Wrong input at st");
 					break;
 				}
 				size = strs.length;
-				for (counter1 = 1; counter1 < size; counter1++) {
+				for (counter1 = 1; counter1 < size; counter1++) { //testing e
 					if (strs[counter1].equals(">=")) {
 						this.Eqin[m][0] = 1;
 						symbolFound = true;
@@ -81,7 +94,7 @@ public class ObjectiveFunction {
 					break;
 				}
 				size = strs.length;
-				for (counter1 = 1; counter1 < size; counter1++) {
+				for (counter1 = 1; counter1 < size; counter1++) { //testing e
 					if (strs[counter1].equals(">=")) {
 						this.Eqin[m][0] = 1;
 						m++;
@@ -100,11 +113,15 @@ public class ObjectiveFunction {
 					System.out.println("Symbol not found in line :" + counter++);
 					break;
 				}
-				if (symbolFound) {
+				if (symbolFound) { 
 					for (j = 1; j < size - 2; j += 3) {
 						try {
 							Double aDouble = Double.parseDouble(strs[j]);
-							if (j != 1 && strs[j - 1].equals("-")) {
+							if(j!=1&&! strs[j - 1].equals("-")&&! strs[j - 1].equals("+")) {     //testing d
+								System.out.println("Incorrect input in line :" + counter++);
+								break;
+							}
+							if (j != 1 && strs[j - 1].equals("-")) {  
 								this.A[m1][n1] = -aDouble;
 							} else {
 								this.A[m1][n1] = aDouble;
@@ -115,11 +132,21 @@ public class ObjectiveFunction {
 							System.out.println("Incorrect input in line :" + counter++);
 							break;
 						}
-						;
 					}
-					Double aDouble = Double.parseDouble(strs[size - 1]);
-					this.b[m2][0] = aDouble;
-					m2++;
+					try { //testing f
+						Double aDouble = Double.parseDouble(strs[size - 1]);
+						if(strs[size-2].equals("-")) {
+							this.b[m2][0]=-aDouble;
+						}
+						else {
+							this.b[m2][0] = aDouble;
+						}			
+						m2++;
+					}
+					catch (NumberFormatException ex){
+						System.out.println("Incorrect input in line :" + counter++);
+						break;
+					}
 				} else {
 					System.out.println("Symbol not found in technical limitation 1");
 				}
