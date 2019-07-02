@@ -14,6 +14,6 @@ if Eqin(i)= –1  , then we are reffering to this one ≤
 else if Eqin(i)= 1, then we are reffering to this one ≥ 
 else if Eqin(i)= 0, then we are reffering to this one =                                                                                                                        
 
-MinMax: Dimensions 1x1. This variable specifies the type of our problem. 
+MinMax: Dimensions 1x1. Specifies the type of our problem. 
 if MinMax=-1, our linear problem is minimization
 else if MinMax = 1, the problem is maximization.
