@@ -1,6 +1,6 @@
 # LinearProblemParser
 ---------------------------------------------------------------------------------------------
-A programm that parses a linear problem, in the form of input.txt and creates 
+A program that parses a linear problem, in the form of input.txt and creates 
 the following matrices:
 
 Α: Dimensions mxn. Contains the factors of the technological constraints. 
